@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 export const connectDB = (url) => {
   return mongoose.connect(url, {
-    useNewUrlParser: true,
+    // useNewUrlParser: false,
     // useCreateIndex: true,
     // useFindAndModify: false,
-    useUnifiedTopology: true,
+    // useUnifiedTopology: true,
   });
 };

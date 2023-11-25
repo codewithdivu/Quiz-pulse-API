@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Quiz Pulse");
+  res.send("<h1>Quiz Pulse</h1>");
 });
 
 app.use("/api/v1/auth", AuthRouter);
