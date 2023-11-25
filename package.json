@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "this is api for quiz-pulse web-application",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "babel-node": "babel-node --presets='@babel/preset-env'",
+    "start": "nodemon --exec npm run babel-node -- src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,5 +17,13 @@
     "quiz"
   ],
   "author": "divu0017",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^8.0.1",
+    "nodemon": "^3.0.1"
+  }
 }
