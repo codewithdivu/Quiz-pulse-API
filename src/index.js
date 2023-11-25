@@ -1,10 +1,13 @@
 import express from "express";
 import "express-async-errors";
 import dotenv from "dotenv";
+// DB
+import { connectDB } from "./db/connect.js";
 // middlewares
 import { errorHandlerMiddleware } from "./middlewares/error-handler.js";
 import { notFound } from "./middlewares/not-found.js";
 // routers
+import AuthRouter from "./routes/authRoutes.js";
 import UserRouter from "./routes/userRoutes.js";
 
 // ---------------------------------------------------------------------
@@ -15,10 +18,11 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("<h1>QUIZ PULSE");
+  res.send("Quiz Pulse");
 });
 
-app.use("/api/v1/auth", UserRouter);
+app.use("/api/v1/auth", AuthRouter);
+app.use("/api/v1/user", UserRouter);
 
 // middlewares
 app.use(errorHandlerMiddleware);
@@ -28,7 +32,9 @@ const port = process.env.PORT || 5000;
 
 const start = async () => {
   try {
-    // await connectDB(process.env.MONGO_URL);
+    await connectDB(
+      "mongodb+srv://codewithdivu:divu0017@cluster0.oi5oyjl.mongodb.net/?retryWrites=true&w=majority"
+    );
     app.listen(port, () =>
       console.log(`Server is listening at port ${port}...`)
     );

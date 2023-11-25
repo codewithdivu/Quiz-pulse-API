@@ -15,19 +15,37 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Password is required"],
     minlength: [6, "Password must be at least 6 characters"],
   },
+  username: {
+    type: String,
+    trim: true,
+  },
+  role: {
+    type: String,
+    default: "user",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  profile_pic: {
+    type: String,
+  },
+  phoneNumber: {
+    type: String,
+    trim: true,
+  },
+  firstName: {
+    type: String,
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    trim: true,
+  },
+  lastLoginAt: {
+    type: Date,
+  },
 });
-
-// // Hash the password before saving to the database
-// UserSchema.pre("save", async function (next) {
-//   const saltRounds = 10;
-//   this.password = await bcrypt.hash(this.password, saltRounds);
-//   next();
-// });
-
-// // Method to compare a provided password with the hashed password in the database
-// UserSchema.methods.comparePassword = async function (candidatePassword) {
-//   return bcrypt.compare(candidatePassword, this.password);
-// };
 
 const User = mongoose.model("User", UserSchema);
 
