@@ -34,7 +34,7 @@ app.use("/api/v1/question", QuestionRouter);
 app.use("/api/v1/quiz", QuizRouter);
 app.use("/api/v1/feedback", FeedbackRouter);
 app.use("/api/v1/submitQuestion", TemporaryQuestionResponseRouter);
-app.user("/api/v1/finalSubmit", FinalSubmitRouter);
+app.use("/api/v1/finalSubmit", FinalSubmitRouter);
 
 // middlewares
 app.use(errorHandlerMiddleware);
