@@ -10,6 +10,7 @@ import { notFound } from "./middlewares/not-found.js";
 import AuthRouter from "./routes/authRoutes.js";
 import UserRouter from "./routes/userRoutes.js";
 import CategoryRouter from "./routes/categoryRoutes.js";
+import QuestionRouter from "./routes/questionRoutes.js";
 
 // ---------------------------------------------------------------------
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", AuthRouter);
 app.use("/api/v1/user", UserRouter);
 app.use("/api/v1/category", CategoryRouter);
+app.use("/api/v1/question", QuestionRouter);
 
 // middlewares
 app.use(errorHandlerMiddleware);
