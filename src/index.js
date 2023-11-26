@@ -12,6 +12,7 @@ import UserRouter from "./routes/userRoutes.js";
 import CategoryRouter from "./routes/categoryRoutes.js";
 import QuestionRouter from "./routes/questionRoutes.js";
 import QuizRouter from "./routes/quizRoutes.js";
+import FeedbackRouter from "./routes/feedbackRoutes.js";
 
 // ---------------------------------------------------------------------
 
@@ -29,6 +30,7 @@ app.use("/api/v1/user", UserRouter);
 app.use("/api/v1/category", CategoryRouter);
 app.use("/api/v1/question", QuestionRouter);
 app.use("/api/v1/quiz", QuizRouter);
+app.use("/api/v1/feedback", FeedbackRouter);
 
 // middlewares
 app.use(errorHandlerMiddleware);
