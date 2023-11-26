@@ -13,6 +13,8 @@ import CategoryRouter from "./routes/categoryRoutes.js";
 import QuestionRouter from "./routes/questionRoutes.js";
 import QuizRouter from "./routes/quizRoutes.js";
 import FeedbackRouter from "./routes/feedbackRoutes.js";
+import TemporaryQuestionResponseRouter from "./routes/temporaryQuestionResponseRoutes.js";
+import FinalSubmitRouter from "./routes/finalSubmitRoutes.js";
 
 // ---------------------------------------------------------------------
 
@@ -31,6 +33,8 @@ app.use("/api/v1/category", CategoryRouter);
 app.use("/api/v1/question", QuestionRouter);
 app.use("/api/v1/quiz", QuizRouter);
 app.use("/api/v1/feedback", FeedbackRouter);
+app.use("/api/v1/submitQuestion", TemporaryQuestionResponseRouter);
+app.user("/api/v1/finalSubmit", FinalSubmitRouter);
 
 // middlewares
 app.use(errorHandlerMiddleware);
