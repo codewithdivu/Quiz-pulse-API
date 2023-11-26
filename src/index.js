@@ -11,6 +11,7 @@ import AuthRouter from "./routes/authRoutes.js";
 import UserRouter from "./routes/userRoutes.js";
 import CategoryRouter from "./routes/categoryRoutes.js";
 import QuestionRouter from "./routes/questionRoutes.js";
+import QuizRouter from "./routes/quizRoutes.js";
 
 // ---------------------------------------------------------------------
 
@@ -27,6 +28,7 @@ app.use("/api/v1/auth", AuthRouter);
 app.use("/api/v1/user", UserRouter);
 app.use("/api/v1/category", CategoryRouter);
 app.use("/api/v1/question", QuestionRouter);
+app.use("/api/v1/quiz", QuizRouter);
 
 // middlewares
 app.use(errorHandlerMiddleware);
