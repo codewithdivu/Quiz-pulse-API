@@ -42,7 +42,9 @@ const login = async (req, res) => {
     });
   }
 
-  if (password === user.password) {
+  const isPasswordValid = await user.comparePassword(password);
+
+  if (isPasswordValid) {
     const token = generateToken(user);
 
     return res.status(201).json({
