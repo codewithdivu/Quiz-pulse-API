@@ -4,11 +4,15 @@ import {
   getUserByID,
   updateProfile,
 } from "../controllers/userController.js";
+import authenticateMiddleware from "../middlewares/authenticateMiddleware.js";
 
 const UserRouter = express.Router();
 
-UserRouter.route("/").get(getAllUsers);
-UserRouter.route("/:id").get(getUserByID);
-UserRouter.route("/:id/updateProfile").patch(updateProfile);
+UserRouter.route("/").get(authenticateMiddleware, getAllUsers);
+UserRouter.route("/:id").get(authenticateMiddleware, getUserByID);
+UserRouter.route("/:id/updateProfile").patch(
+  authenticateMiddleware,
+  updateProfile
+);
 
 export default UserRouter;

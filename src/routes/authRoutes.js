@@ -5,12 +5,13 @@ import {
   register,
   resetPassword,
 } from "../controllers/authController.js";
+import authenticateMiddleware from "../middlewares/authenticateMiddleware.js";
 
 const AuthRouter = express.Router();
 
 AuthRouter.route("/register").post(register);
 AuthRouter.route("/login").post(login);
-AuthRouter.route("/reset-password").post(resetPassword);
+AuthRouter.route("/reset-password").post(authenticateMiddleware, resetPassword);
 AuthRouter.route("/forgot-password").post(forgotPassword);
 
 export default AuthRouter;

@@ -6,14 +6,15 @@ import {
   getAllQuestion,
 } from "../controllers/questionController.js";
 import express from "express";
+import authenticateMiddleware from "../middlewares/authenticateMiddleware.js";
 
 const QuestionRouter = express.Router();
 
-QuestionRouter.route("/").get(getAllQuestion);
-QuestionRouter.route("/create").post(createQuestion);
+QuestionRouter.route("/").get(authenticateMiddleware, getAllQuestion);
+QuestionRouter.route("/create").post(authenticateMiddleware, createQuestion);
 QuestionRouter.route("/:id")
-  .get(getQuestion)
-  .patch(updateQuestion)
-  .delete(deleteQuestion);
+  .get(authenticateMiddleware, getQuestion)
+  .patch(authenticateMiddleware, updateQuestion)
+  .delete(authenticateMiddleware, deleteQuestion);
 
 export default QuestionRouter;
