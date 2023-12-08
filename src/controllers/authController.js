@@ -1,5 +1,27 @@
 import User from "../models/User.js";
 import { generateToken } from "../utils/generateToken.js";
+import otpGenerator from "otp-generator";
+import { mailTransporter } from "../utils/mailTransporter.js";
+
+// Map to store generated OTPs, where keys are user email addresses
+const otpMap = new Map();
+
+const generateOTP = (email) => {
+  const otp = otpGenerator.generate(6, {
+    digits: true,
+  });
+
+  otpMap.set(email, otp);
+  return otp;
+};
+
+const verifyOTP = (email, otp) => {
+  const storedOTP = otpMap.get(email);
+
+  return otp === storedOTP;
+};
+
+// ------------------- auth-controller-------------------------
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -62,7 +84,14 @@ const login = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-  const { email, newPassword } = req.body;
+  const { email, newPassword, otp } = req.body;
+
+  if (!email || !otp || !newPassword) {
+    return res.status(400).json({
+      success: false,
+      msg: "Please provide email, OTP, and a new password.",
+    });
+  }
 
   const user = await User.findOne({ email });
 
@@ -70,8 +99,16 @@ const resetPassword = async (req, res) => {
     return res.status(404).json({ success: false, msg: "User not found" });
   }
 
+  const isOTPValid = verifyOTP(email, otp);
+
+  if (!isOTPValid) {
+    return res.status(401).json({ success: false, msg: "Invalid OTP" });
+  }
+
   user.password = newPassword;
   await user.save();
+
+  otpMap.delete(email);
 
   res.status(200).json({ success: true, msg: "Password reset successfully" });
 };
@@ -85,10 +122,20 @@ const forgotPassword = async (req, res) => {
     return res.status(404).json({ success: false, msg: "User not found" });
   }
 
-  // will send password to the email
+  const otp = generateOTP(email);
+
+  const mailOptions = {
+    from: "mavadiyadivyesh56@gmail.com",
+    to: "divu0017@gmail.com", // here we have to change email with user email but for now we keep this
+    subject: "Forgot-password",
+    text: `OTP for this forgot-password for quizy-pulse app is ${otp}`,
+  };
+
+  await mailTransporter.sendMail(mailOptions);
+
   res
     .status(200)
-    .json({ success: true, msg: "Password reset link sent to your email" });
+    .json({ success: true, msg: "OTP send successfully to your email" });
 };
 
 export { register, login, resetPassword, forgotPassword };
