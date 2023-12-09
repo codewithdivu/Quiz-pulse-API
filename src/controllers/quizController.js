@@ -55,14 +55,22 @@ const deleteQuiz = async (req, res) => {
 };
 
 const getAllQuiz = async (req, res) => {
-  const quiz = await Quiz.find();
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.pageSize) || 10;
+
+  const skip = (page - 1) * pageSize;
+
+  const quiz = await Quiz.find().skip(skip).limit(pageSize);
+
   const quizCount = await Quiz.countDocuments();
 
   res.status(200).json({
     success: true,
     count: quizCount,
+    currentPage: page,
+    totalPages: Math.ceil(quizCount / pageSize),
     data: quiz,
-    msg: "successfully request",
+    msg: "successfully retrieved quizzes.",
   });
 };
 

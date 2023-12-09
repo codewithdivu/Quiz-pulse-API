@@ -68,14 +68,21 @@ const deleteCategory = async (req, res) => {
 };
 
 const getALLCategories = async (req, res) => {
-  const category = await Category.find();
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.pageSize) || 10;
+
+  const skip = (page - 1) * pageSize;
+
+  const category = await Category.find().skip(skip).limit(pageSize);
   const categoryCount = await Category.countDocuments();
 
   res.status(200).json({
     success: true,
     count: categoryCount,
+    currentPage: page,
+    totalPages: Math.ceil(categoryCount / pageSize),
     data: category,
-    msg: "successfully request",
+    msg: "successfully retrieved categories.",
   });
 };
 

@@ -62,14 +62,22 @@ const deleteQuestion = async (req, res) => {
 };
 
 const getAllQuestion = async (req, res) => {
-  const question = await Question.find();
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.pageSize) || 10;
+
+  const skip = (page - 1) * pageSize;
+
+  const question = await Question.find().skip(skip).limit(pageSize);
+
   const questionCount = await Question.countDocuments();
 
   res.status(200).json({
     success: true,
     count: questionCount,
+    currentPage: page,
+    totalPages: Math.ceil(questionCount / pageSize),
     data: question,
-    msg: "successfully request",
+    msg: "successfully retrieved questions.",
   });
 };
 
