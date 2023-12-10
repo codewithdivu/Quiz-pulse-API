@@ -1,11 +1,13 @@
 import express from "express";
 import "express-async-errors";
 import dotenv from "dotenv";
+import swaggerUi from "swagger-ui-express";
 // DB
 import { connectDB } from "./db/connect.js";
 // middlewares
 import { errorHandlerMiddleware } from "./middlewares/error-handler.js";
 import { notFound } from "./middlewares/not-found.js";
+import swaggerSpec from "./swagger/swagger.js";
 // routers
 import AuthRouter from "./routes/authRoutes.js";
 import UserRouter from "./routes/userRoutes.js";
@@ -35,6 +37,9 @@ app.use("/api/v1/quiz", QuizRouter);
 app.use("/api/v1/feedback", FeedbackRouter);
 app.use("/api/v1/submitQuestion", TemporaryQuestionResponseRouter);
 app.use("/api/v1/finalSubmit", FinalSubmitRouter);
+
+// swagger
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // middlewares
 app.use(errorHandlerMiddleware);
