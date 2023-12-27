@@ -1,6 +1,7 @@
 import express from "express";
 import "express-async-errors";
 import dotenv from "dotenv";
+import cors from 'cors';
 import swaggerUi from "swagger-ui-express";
 // DB
 import { connectDB } from "./db/connect.js";
@@ -24,6 +25,8 @@ dotenv.config();
 const app = express();
  
 app.use(express.json());
+app.use(cors());
+
 
 app.get("/", (req, res) => {
   res.send("<h1>Quiz Pulse</h1>");
