@@ -32,7 +32,6 @@ const verifyOTP = (email, otp) => {
 
 const register = async (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password) {
     return res.status(400).json({
       success: false,
@@ -122,6 +121,7 @@ const resetPassword = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
+  console.log("email :>> ", email);
 
   const user = await User.findOne({ email });
 
@@ -133,7 +133,7 @@ const forgotPassword = async (req, res) => {
 
   const mailOptions = {
     from: "mavadiyadivyesh56@gmail.com",
-    to: "divu0017@gmail.com", // here we have to change email with user email but for now we keep this
+    to: email,
     subject: "Forgot-password",
     text: `OTP for this forgot-password for quizy-pulse app is ${otp}`,
   };

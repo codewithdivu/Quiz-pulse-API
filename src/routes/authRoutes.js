@@ -5,7 +5,6 @@ import {
   register,
   resetPassword,
 } from "../controllers/authController.js";
-import authenticateMiddleware from "../middlewares/authenticateMiddleware.js";
 
 const AuthRouter = express.Router();
 
