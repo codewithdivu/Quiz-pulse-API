@@ -1,7 +1,7 @@
 import express from "express";
 import "express-async-errors";
 import dotenv from "dotenv";
-import cors from 'cors';
+import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 // DB
 import { connectDB } from "./db/connect.js";
@@ -18,15 +18,15 @@ import QuizRouter from "./routes/quizRoutes.js";
 import FeedbackRouter from "./routes/feedbackRoutes.js";
 import TemporaryQuestionResponseRouter from "./routes/temporaryQuestionResponseRoutes.js";
 import FinalSubmitRouter from "./routes/finalSubmitRoutes.js";
+import ScoreRouter from "./routes/scoreRoutes.js";
 
 // ---------------------------------------------------------------------
 
 dotenv.config();
 const app = express();
- 
+
 app.use(express.json());
 app.use(cors());
-
 
 app.get("/", (req, res) => {
   res.send("<h1>Quiz Pulse</h1>");
@@ -40,6 +40,7 @@ app.use("/api/v1/quiz", QuizRouter);
 app.use("/api/v1/feedback", FeedbackRouter);
 app.use("/api/v1/submitQuestion", TemporaryQuestionResponseRouter);
 app.use("/api/v1/finalSubmit", FinalSubmitRouter);
+app.use("/api/v1/score", ScoreRouter);
 
 // swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

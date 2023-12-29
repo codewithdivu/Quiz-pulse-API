@@ -5,7 +5,7 @@ const finalSubmit = async (req, res) => {
   const { userId, quizId } = req.body;
   const maxPoint = 5;
 
-  const responses = await TemporaryResponse.find({ userId, quizId });
+  const responses = await TemporaryQuestionResponse.find({ userId, quizId });
 
   let countOfCorrect = responses.reduce(
     (count, obj) => count + (obj.isCorrect === true ? 1 : 0),
@@ -25,7 +25,7 @@ const finalSubmit = async (req, res) => {
     percentage: percentageScore,
   });
 
-  await TemporaryResponse.deleteMany({ userId, quizId });
+  await TemporaryQuestionResponse.deleteMany({ userId, quizId });
 
   res
     .status(200)
