@@ -57,7 +57,6 @@ const updateProfile = async (req, res) => {
 };
 
 const uploadProfilePic = async (req, res) => {
-  console.log("req.params :>> ", req.params);
   if (!req.file) {
     res.status(400).json({
       success: false,

@@ -9,7 +9,9 @@ import authenticateMiddleware from "../middlewares/authenticateMiddleware.js";
 import multer from "multer";
 
 const UserRouter = express.Router();
-const upload = multer();
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+// const upload = multer();
 
 UserRouter.route("/").get(authenticateMiddleware, getAllUsers);
 UserRouter.route("/:id").get(authenticateMiddleware, getUserByID);
