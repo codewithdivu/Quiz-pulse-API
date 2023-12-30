@@ -76,4 +76,27 @@ const getFeedback = async (req, res) => {
     .json({ success: true, data: feedback, msg: "request succeessfull" });
 };
 
-export { submitFeedback, getQuizFeedbacks, getUserFeedbacks, getFeedback };
+const getAllFeedback = async (req, res) => {
+  try {
+    const feedbackList = await Feedback.find();
+
+    if (!feedbackList || feedbackList.length === 0) {
+      return res.status(404).json({ success: false, msg: "No feedback found" });
+    }
+
+    res
+      .status(200)
+      .json({ success: true, data: feedbackList, msg: "Request successful" });
+  } catch (error) {
+    console.error("Error fetching feedback:", error);
+    res.status(500).json({ success: false, msg: "Internal Server Error" });
+  }
+};
+
+export {
+  submitFeedback,
+  getQuizFeedbacks,
+  getUserFeedbacks,
+  getFeedback,
+  getAllFeedback,
+};

@@ -4,6 +4,7 @@ import {
   submitFeedback,
   getUserFeedbacks,
   getFeedback,
+  getAllFeedback,
 } from "../controllers/feedbackController.js";
 import authenticateMiddleware from "../middlewares/authenticateMiddleware.js";
 
@@ -22,5 +23,6 @@ FeedbackRouter.route("/user/:userId").get(
   getUserFeedbacks
 );
 FeedbackRouter.route("/:id").get(authenticateMiddleware, getFeedback);
+FeedbackRouter.route("/").get(authenticateMiddleware, getAllFeedback);
 
 export default FeedbackRouter;

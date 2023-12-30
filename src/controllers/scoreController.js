@@ -42,4 +42,22 @@ const getUserScores = async (req, res) => {
   }
 };
 
-export { getQuizScore, getUserScores };
+const getAllScores = async (req, res) => {
+  try {
+    const scoresList = await Score.find();
+
+    if (!scoresList || scoresList.length === 0) {
+      return res.status(404).json({ success: false, msg: "No scores found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      msg: "All scores retrieved successfully",
+      data: scoresList,
+    });
+  } catch (error) {
+    console.error("Error fetching scores:", error);
+    res.status(500).json({ success: false, msg: "Internal Server Error" });
+  }
+};
+export { getQuizScore, getUserScores, getAllScores };

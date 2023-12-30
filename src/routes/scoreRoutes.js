@@ -1,5 +1,9 @@
 import express from "express";
-import { getQuizScore, getUserScores } from "../controllers/scoreController.js";
+import {
+  getQuizScore,
+  getUserScores,
+  getAllScores,
+} from "../controllers/scoreController.js";
 import authenticateMiddleware from "../middlewares/authenticateMiddleware.js";
 
 const ScoreRouter = express.Router();
@@ -9,5 +13,7 @@ ScoreRouter.route("/:quizId/:userId").post(
   getQuizScore
 );
 ScoreRouter.route("/:userId").post(authenticateMiddleware, getUserScores);
+
+ScoreRouter.route("/").get(authenticateMiddleware, getAllScores);
 
 export default ScoreRouter;
