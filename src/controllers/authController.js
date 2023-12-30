@@ -7,12 +7,6 @@ import { mailTransporter } from "../utils/mailTransporter.js";
 const otpMap = new Map();
 
 const generateOTP = (email) => {
-  // const otp = otpGenerator.generate(6, {
-  //   digits: true,
-  // });
-
-  // otpMap.set(email, otp);
-  // return otp;
   const length = 6;
   const min = Math.pow(10, length - 1);
   const max = Math.pow(10, length) - 1;
