@@ -96,13 +96,15 @@ const resetPassword = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    return res.status(404).json({ success: false, msg: "User not found" });
+    return res.status(400).json({ success: false, msg: "User not found" });
   }
 
   const isOTPValid = verifyOTP(email, otp);
 
   if (!isOTPValid) {
-    return res.status(401).json({ success: false, msg: "Invalid OTP" });
+    return res
+      .status(400)
+      .json({ success: false, msg: "Invalid OTP", status: 400 });
   }
 
   user.password = newPassword;
@@ -120,7 +122,9 @@ const forgotPassword = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    return res.status(404).json({ success: false, msg: "User not found" });
+    return res
+      .status(404)
+      .json({ success: false, msg: "User not found", status: 404 });
   }
 
   const otp = generateOTP(email);
